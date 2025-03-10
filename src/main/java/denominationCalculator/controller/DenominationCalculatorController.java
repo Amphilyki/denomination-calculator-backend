@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/euro-denomination-calculator")
 public class DenominationCalculatorController {
