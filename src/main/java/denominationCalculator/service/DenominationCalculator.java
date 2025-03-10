@@ -51,9 +51,7 @@ public class DenominationCalculator {
             denominationForOldAmount.remove(key);
         });
         if (!denominationForOldAmount.isEmpty()) {
-            denominationForOldAmount.forEach((key, value) -> {
-                resultAsMap.put(key, -value);
-            });
+            denominationForOldAmount.forEach((key, value) -> resultAsMap.put(key, -value));
         }
         return resultAsMap;
     }
