@@ -3,10 +3,7 @@ package denominationCalculator.controller;
 import denominationCalculator.service.DenominationCalculator;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -25,6 +22,16 @@ public class DenominationCalculatorController {
             throw new BadRequestException(" Amount cannot be 0 or negative");
         }
         return denominationCalculator.getDenominationForAmount(amount);
+    }
+
+    @GetMapping("/denominations-difference")
+    public Map<BigDecimal, Integer> getDenominationDifferenceForTwoAmount(
+            @RequestParam("newAmount") BigDecimal newAmount, @RequestParam("oldAmount") BigDecimal oldAmount)
+            throws BadRequestException {
+        if (newAmount.compareTo(new BigDecimal(0)) != 1 || oldAmount.compareTo(new BigDecimal(0)) != 1) {
+            throw new BadRequestException(" Amounts cannot be 0 or negative");
+        }
+        return denominationCalculator.getDenominationDifferenceForTwoAmounts(newAmount, oldAmount);
     }
 
 }

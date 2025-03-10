@@ -66,4 +66,105 @@ public class DenominationCalculatorTest {
         assertEquals(1, result.get(DenominationsUtil.ONE_CENT));
     }
 
+    @Test
+    @DisplayName("Denomination difference for 300 and 88.")
+    public void test_getDenominationDifferenceForTwoAmounts_300_and_88() {
+        Map<BigDecimal, Integer> result =
+                underTest.getDenominationDifferenceForTwoAmounts(
+                        new BigDecimal(300), new BigDecimal(88));
+
+        assertEquals(8, result.size());
+        assertEquals(1, result.get(DenominationsUtil.TW0_HUNDRED_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.ONE_HUNDRED_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIFTY_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.TWENTY_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.TEN_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIVE_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.TWO_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.ONE_EURO));
+    }
+
+
+    @Test
+    @DisplayName("Denomination difference for 88 and 300.")
+    public void test_getDenominationDifferenceForTwoAmounts_88_and_300() {
+        Map<BigDecimal, Integer> result =
+                underTest.getDenominationDifferenceForTwoAmounts(
+                        new BigDecimal(88), new BigDecimal(300));
+
+        assertEquals(8, result.size());
+        assertEquals(-1, result.get(DenominationsUtil.TW0_HUNDRED_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.ONE_HUNDRED_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.FIFTY_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.TWENTY_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.TEN_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.FIVE_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.TWO_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.ONE_EURO));
+    }
+
+    @Test
+    @DisplayName("Denomination difference for 1230 and 35.89.")
+    public void test_getDenominationDifferenceForTwoAmounts_1230_and_35_89() {
+        Map<BigDecimal, Integer> result =
+                underTest.getDenominationDifferenceForTwoAmounts(
+                        new BigDecimal(1230), new BigDecimal("35.89"));
+
+        assertEquals(9, result.size());
+        assertEquals(6, result.get(DenominationsUtil.TW0_HUNDRED_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.TWENTY_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.TEN_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIVE_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIVE_CENTS));
+        assertEquals(-1, result.get(DenominationsUtil.TWENTY_CENTS));
+        assertEquals(-1, result.get(DenominationsUtil.TEN_CENTS));
+        assertEquals(-1, result.get(DenominationsUtil.FIVE_CENTS));
+        assertEquals(-2, result.get(DenominationsUtil.TWO_CENTS));
+    }
+
+    @Test
+    @DisplayName("Denomination difference for 4567.69 and 98.")
+    public void test_getDenominationDifferenceForTwoAmounts_4567_69_and_98() {
+        Map<BigDecimal, Integer> result =
+                underTest.getDenominationDifferenceForTwoAmounts(
+                        new BigDecimal("4567.69"), new BigDecimal(98));
+
+        assertEquals(12, result.size());
+        assertEquals(22, result.get(DenominationsUtil.TW0_HUNDRED_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.ONE_HUNDRED_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.FIFTY_EUROS));
+        assertEquals(-2, result.get(DenominationsUtil.TWENTY_EUROS));
+        assertEquals(1, result.get(DenominationsUtil.TEN_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.FIVE_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.TWO_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.ONE_EURO));
+        assertEquals(1, result.get(DenominationsUtil.FIFTY_CENTS));
+        assertEquals(1, result.get(DenominationsUtil.TEN_CENTS));
+        assertEquals(1, result.get(DenominationsUtil.FIVE_CENTS));
+        assertEquals(2, result.get(DenominationsUtil.TWO_CENTS));
+    }
+
+
+    @Test
+    @DisplayName("Denomination difference for 340.75 and 76598.62")
+    public void test_getDenominationDifferenceForTwoAmounts_340_75_and_76598_62() {
+        Map<BigDecimal, Integer> result =
+                underTest.getDenominationDifferenceForTwoAmounts(
+                        new BigDecimal("340.75"), new BigDecimal("76598.62"));
+
+        assertEquals(12, result.size());
+        assertEquals(-381, result.get(DenominationsUtil.TW0_HUNDRED_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.ONE_HUNDRED_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIFTY_EUROS));
+        assertEquals(0, result.get(DenominationsUtil.TWENTY_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.FIVE_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.TWO_EUROS));
+        assertEquals(-1, result.get(DenominationsUtil.ONE_EURO));
+        assertEquals(0, result.get(DenominationsUtil.FIFTY_CENTS));
+        assertEquals(1, result.get(DenominationsUtil.TWENTY_CENTS));
+        assertEquals(-1, result.get(DenominationsUtil.TEN_CENTS));
+        assertEquals(1, result.get(DenominationsUtil.FIVE_CENTS));
+        assertEquals(-1, result.get(DenominationsUtil.TWO_CENTS));
+    }
+
 }

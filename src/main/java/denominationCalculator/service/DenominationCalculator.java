@@ -18,7 +18,6 @@ public class DenominationCalculator {
 
         for (BigDecimal currentDenomination : DenominationsUtil.DENOMINATIONS) {
             if (amount.compareTo(currentDenomination) != -1) {
-                //>=
                 int denominationTimes = 0;
                 while (amount.compareTo(currentDenomination) != -1) {
                     denominationTimes++;
@@ -32,8 +31,30 @@ public class DenominationCalculator {
         return sorted;
     }
 
-    public Map<BigDecimal, Integer> getDenominationDifferenceForAmounts(BigDecimal newAmount, BigDecimal oldAmount) {
+    public Map<BigDecimal, Integer> getDenominationDifferenceForTwoAmounts(BigDecimal newAmount, BigDecimal oldAmount) {
         Map<BigDecimal, Integer> resultAsMap = new HashMap<>();
+        Map<BigDecimal, Integer> denominationForNewAmount = this.getDenominationForAmount(newAmount);
+        Map<BigDecimal, Integer> denominationForOldAmount = this.getDenominationForAmount(oldAmount);
+
+        denominationForNewAmount.forEach((key, value) -> {
+            Integer denominationInOldAmount = denominationForOldAmount.get(key);
+            if (denominationInOldAmount != null) {
+                if (denominationInOldAmount > value) {
+                    resultAsMap.put(key, -(denominationInOldAmount - value));
+                }
+                if (value >= denominationInOldAmount) {
+                    resultAsMap.put(key, value - denominationInOldAmount);
+                }
+            } else {
+                resultAsMap.put(key, +value);
+            }
+            denominationForOldAmount.remove(key);
+        });
+        if (!denominationForOldAmount.isEmpty()) {
+            denominationForOldAmount.forEach((key, value) -> {
+                resultAsMap.put(key, -value);
+            });
+        }
         return resultAsMap;
     }
 
