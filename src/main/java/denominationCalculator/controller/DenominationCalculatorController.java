@@ -16,7 +16,7 @@ public class DenominationCalculatorController {
     @Autowired
     DenominationCalculator denominationCalculator;
 
-    @GetMapping("/amount/{amount}")
+    @GetMapping("/{amount}")
     public Map<BigDecimal, Integer> getDenominationsForAmount(@PathVariable("amount") BigDecimal amount)
             throws BadRequestException {
         if (amount.compareTo(new BigDecimal(0)) != 1) {
@@ -25,9 +25,9 @@ public class DenominationCalculatorController {
         return denominationCalculator.getDenominationForAmount(amount);
     }
 
-    @GetMapping("/denominations-difference")
+    @GetMapping("/{newAmount}/difference-from/{oldAmount}")
     public Map<BigDecimal, Integer> getDenominationDifferenceForTwoAmount(
-            @RequestParam("newAmount") BigDecimal newAmount, @RequestParam("oldAmount") BigDecimal oldAmount)
+            @PathVariable("newAmount") BigDecimal newAmount, @PathVariable("oldAmount") BigDecimal oldAmount)
             throws BadRequestException {
         if (newAmount.compareTo(new BigDecimal(0)) != 1 || oldAmount.compareTo(new BigDecimal(0)) != 1) {
             throw new BadRequestException(" Amounts cannot be 0 or negative");

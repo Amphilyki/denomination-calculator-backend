@@ -29,16 +29,14 @@ class DenominationCalculatorControllerTest {
 
     @Test
     void testGetDenominationsForAmount() throws Exception {
-        mvc.perform(get("/euro-denomination-calculator/amount/1234"))
+        mvc.perform(get("/euro-denomination-calculator/1234"))
                 .andExpect(status().isOk());
         Mockito.verify(service, times(1)).getDenominationForAmount(new BigDecimal(1234));
     }
 
     @Test
     void testGetDenominationDifferenceForTwoAmount() throws Exception {
-        mvc.perform(get("/euro-denomination-calculator/denominations-difference")
-                        .param("newAmount", "123")
-                        .param("oldAmount", "456"))
+        mvc.perform(get("/euro-denomination-calculator/123/difference-from/456"))
                 .andExpect(status().isOk());
         Mockito.verify(service, times(1)).
                 getDenominationDifferenceForTwoAmounts(new BigDecimal(123), new BigDecimal(456));
