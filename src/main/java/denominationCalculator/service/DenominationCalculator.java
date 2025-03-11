@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -53,7 +56,13 @@ public class DenominationCalculator {
         if (!denominationForOldAmount.isEmpty()) {
             denominationForOldAmount.forEach((key, value) -> resultAsMap.put(key, -value));
         }
-        return resultAsMap;
+        return resultAsMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
 }
