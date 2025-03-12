@@ -15,7 +15,14 @@ import java.util.TreeMap;
 @Service
 public class DenominationCalculator {
 
-
+    /**
+     * Calculates denominations (notes and coins) for a given amount of money  in euro.
+     * Largest possible notes or coins are taken first.
+     *
+     * @param amount : the amount of money
+     * @return a map containing key-pair values of the denomination (key) and its quantity (value).
+     * For example, the amount of 250 euro would return {"200.00": 1, "50:00": 1}.
+     */
     public Map<BigDecimal, Integer> getDenominationForAmount(BigDecimal amount) {
         Map<BigDecimal, Integer> resultAsMap = new HashMap<>();
 
@@ -34,6 +41,16 @@ public class DenominationCalculator {
         return sorted;
     }
 
+    /**
+     * Calculates the difference in denominations between two amounts of money in euro,
+     * namely their difference in notes and coins.
+     *
+     * @param newAmount : the new amount
+     * @param oldAmount : the old amount
+     * @return a map containing key-value pairs, where key is the denomination and value the increase or reduction of it.
+     * For example, {"200.00": -1} means that the new amount has a 200 euro note less,
+     * and {"100.00": 1} means that it has a 100 euro note more than the previous amount.
+     */
     public Map<BigDecimal, Integer> getDenominationDifferenceForTwoAmounts(BigDecimal newAmount, BigDecimal oldAmount) {
         Map<BigDecimal, Integer> resultAsMap = new HashMap<>();
         Map<BigDecimal, Integer> denominationForNewAmount = this.getDenominationForAmount(newAmount);
