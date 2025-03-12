@@ -20,7 +20,7 @@ public class DenominationCalculatorController {
     public Map<BigDecimal, Integer> getDenominationsForAmount(@PathVariable("amount") BigDecimal amount)
             throws BadRequestException {
         if (amount.compareTo(new BigDecimal(0)) == -1) {
-            throw new BadRequestException(" Amount cannot be 0 or negative");
+            throw new BadRequestException(" Amount cannot be negative number.");
         }
         return denominationCalculator.getDenominationForAmount(amount);
     }
@@ -30,7 +30,7 @@ public class DenominationCalculatorController {
             @PathVariable("newAmount") BigDecimal newAmount, @PathVariable("oldAmount") BigDecimal oldAmount)
             throws BadRequestException {
         if (newAmount.compareTo(new BigDecimal(0)) == -1 || oldAmount.compareTo(new BigDecimal(0)) == -1) {
-            throw new BadRequestException(" Amounts cannot be 0 or negative");
+            throw new BadRequestException(" Amounts cannot be negative number.");
         }
         return denominationCalculator.getDenominationDifferenceForTwoAmounts(newAmount, oldAmount);
     }
